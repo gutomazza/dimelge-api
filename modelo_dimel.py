@@ -6,7 +6,7 @@
 # Variáveis explicativas:
 #   - QT_APTOS
 #   - QT_IDOSOS
-#   - QT_DEFICIENTES
+#   - QT_DEFICIENTE
 #   - QT_BAIXA_ESCOLARIDADE
 #   - QT_BIOMETRIA
 
@@ -25,7 +25,7 @@ from joblib import dump
 ARQUIVO_DADOS = "dados_analise03.xlsx"
 ARQUIVO_MODELO = "modelo_dimel.pkl"
 
-FEATURES = ["QT_APTOS", "QT_IDOSOS", "QT_DEFICIENTES", "QT_BAIXA_ESCOLARIDADE","QT_BIOMETRIA"]
+FEATURES = ["QT_APTOS", "QT_IDOSOS", "QT_DEFICIENTE", "QT_BAIXA_ESCOLARIDADE","QT_BIOMETRIA"]
 TARGET = "CLUSTER"
 
 
@@ -151,7 +151,7 @@ def gerar_laudo_dimel(registro: dict, resultado: dict) -> str:
 
     qt_aptos = int(registro.get("QT_APTOS", 0))
     qt_idosos = int(registro.get("QT_IDOSOS", 0))
-    qt_def = int(registro.get("QT_DEFICIENTES", 0))
+    qt_def = int(registro.get("QT_DEFICIENTE", 0))
     qt_baixa = int(registro.get("QT_BAIXA_ESCOLARIDADE", 0))
     qt_biometria = int(registro.get("QT_BIOMETRIA", 0))
 
@@ -192,7 +192,7 @@ def gerar_laudo_dimel(registro: dict, resultado: dict) -> str:
 2. Dados utilizados no modelo
 - Eleitores aptos (QT_APTOS): {qt_aptos}
 - Eleitores idosos (QT_IDOSOS): {qt_idosos} ({_fmt_num(pct_idosos)}% dos aptos)
-- Eleitores com deficiência (QT_DEFICIENTE\s): {qt_def} ({_fmt_num(pct_def)}% dos aptos)
+- Eleitores com deficiência (QT_DEFICIENTE): {qt_def} ({_fmt_num(pct_def)}% dos aptos)
 - Eleitores com baixa escolaridade (QT_BAIXA_ESCOLARIDADE): {qt_baixa} ({_fmt_num(pct_baixa)}% dos aptos)
 - Eleitores com biometria(QT_BIOMETRIA): {qt_biometria} ({_fmt_num(pct_biometria)}% dos aptos)
 

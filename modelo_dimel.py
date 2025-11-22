@@ -6,7 +6,7 @@
 # Variáveis explicativas:
 #   - QT_APTOS
 #   - QT_IDOSOS
-#   - QT_DEFICIENTE
+#   - QT_DEFICIENTES
 #   - QT_BAIXA_ESCOLARIDADE
 #   - QT_BIOMETRIA
 
@@ -192,7 +192,7 @@ def gerar_laudo_dimel(registro: dict, resultado: dict) -> str:
 2. Dados utilizados no modelo
 - Eleitores aptos (QT_APTOS): {qt_aptos}
 - Eleitores idosos (QT_IDOSOS): {qt_idosos} ({_fmt_num(pct_idosos)}% dos aptos)
-- Eleitores com deficiência (QT_DEFICIENTES): {qt_def} ({_fmt_num(pct_def)}% dos aptos)
+- Eleitores com deficiência (QT_DEFICIENTE\s): {qt_def} ({_fmt_num(pct_def)}% dos aptos)
 - Eleitores com baixa escolaridade (QT_BAIXA_ESCOLARIDADE): {qt_baixa} ({_fmt_num(pct_baixa)}% dos aptos)
 - Eleitores com biometria(QT_BIOMETRIA): {qt_biometria} ({_fmt_num(pct_biometria)}% dos aptos)
 

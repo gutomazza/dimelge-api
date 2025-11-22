@@ -18,7 +18,7 @@ def main():
         sys.exit(1)
 
     # 1) Carrega o modelo treinado (pipeline ou modelo simples)
-    modelo = load("modelo_dimel_v2.pkl")  # ajuste se o nome for diferente
+    modelo = load("modelo_dimel.pkl")  # ajuste se o nome for diferente
 
     # 2) Lê os novos dados
     df_novos = pd.read_excel(caminho_entrada)

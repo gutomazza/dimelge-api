@@ -8,6 +8,7 @@
 #   - QT_IDOSOS
 #   - QT_DEFICIENTE
 #   - QT_BAIXA_ESCOLARIDADE
+#   - QT_BIOMETRIA
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -15,7 +16,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 import joblib
 from pathlib import Path
-
+from joblib import dump
 
 # -----------------------------
 # Configurações gerais
@@ -24,7 +25,7 @@ from pathlib import Path
 ARQUIVO_DADOS = "dados_analise03.xlsx"
 ARQUIVO_MODELO = "modelo_dimel.pkl"
 
-FEATURES = ["QT_APTOS", "QT_IDOSOS", "QT_DEFICIENTE", "QT_BAIXA_ESCOLARIDADE"]
+FEATURES = ["QT_APTOS", "QT_IDOSOS", "QT_DEFICIENTES", "QT_BAIXA_ESCOLARIDADE","QT_BIOMETRIA"]
 TARGET = "CLUSTER"
 
 
@@ -68,6 +69,7 @@ def treinar_e_salvar_modelo(
 
     # 5) Treinar
     modelo.fit(X_train, y_train)
+    dump(modelo, "modelo_dimel_v2.pkl")
 
     # 6) Avaliar
     y_pred = modelo.predict(X_test)
@@ -149,8 +151,9 @@ def gerar_laudo_dimel(registro: dict, resultado: dict) -> str:
 
     qt_aptos = int(registro.get("QT_APTOS", 0))
     qt_idosos = int(registro.get("QT_IDOSOS", 0))
-    qt_def = int(registro.get("QT_DEFICIENTE", 0))
+    qt_def = int(registro.get("QT_DEFICIENTES", 0))
     qt_baixa = int(registro.get("QT_BAIXA_ESCOLARIDADE", 0))
+    qt_biometria = int(registro.get("QT_BIOMETRIA", 0))
 
     if qt_aptos > 0:
         pct_idosos = 100 * qt_idosos / qt_aptos
@@ -189,8 +192,9 @@ def gerar_laudo_dimel(registro: dict, resultado: dict) -> str:
 2. Dados utilizados no modelo
 - Eleitores aptos (QT_APTOS): {qt_aptos}
 - Eleitores idosos (QT_IDOSOS): {qt_idosos} ({_fmt_num(pct_idosos)}% dos aptos)
-- Eleitores com deficiência (QT_DEFICIENTE): {qt_def} ({_fmt_num(pct_def)}% dos aptos)
+- Eleitores com deficiência (QT_DEFICIENTES): {qt_def} ({_fmt_num(pct_def)}% dos aptos)
 - Eleitores com baixa escolaridade (QT_BAIXA_ESCOLARIDADE): {qt_baixa} ({_fmt_num(pct_baixa)}% dos aptos)
+- Eleitores com biometria(QT_BIOMETRIA): {qt_biometria} ({_fmt_num(pct_biometria)}% dos aptos)
 
 3. Resultado da classificação
 - CLUSTER predito: {cluster}
@@ -216,3 +220,4 @@ O laudo baseia-se exclusivamente nas variáveis informadas e no modelo vigente n
 
 if __name__ == "__main__":
     treinar_e_salvar_modelo()
+    
